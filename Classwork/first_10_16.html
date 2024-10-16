@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+      function do_some_stuff() {
+        // let x = "99"
+        // x = parseInt(x) + 1
+        // console.log(`x = ${x}`)
+        // console.log(typeof x)
+        // let x = 3.14; number
+        // x += "and sad" // string
+        // x = {} an abject literal
+        let x;
+        x = "blah" / 100;
+        check_type2(x)
+      }
+
+      function check_type(n){
+        let msg = `Input is of type:${typeof n}`;
+        let resObj = document.getElementById("results");
+        if (resObj === null){
+          alert("resObj is null")
+        }
+        if (n === undefined){
+          alert("undefined is here")
+        }
+        resObj.innerHTML = msg;
+      }
+
+      function check_type2(n){
+        let msg = `Input is of type:${typeof n}`;
+        let resObj = document.getElementById("results");
+        resObj.innerHTML = msg;
+      }
+    </script>
+</head>
+<body>
+<button type="button" onclick="do_some_stuff()">Click me</button>
+<div id="results">results here</div>
+</body>
+</html>
