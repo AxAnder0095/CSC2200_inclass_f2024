@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="css/pwGenMain.css" />
+  <script>
+    function doPassword() {
+      const CHARS = "ABCDEFJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+      const SYMB = "!@#$%^&*()"
+      const len = parseInt(document.getElementById("length").value);
+      if (isNaN(len) || len < 4 || len > 10){
+        let obj = document.getElementById("passwordOutput");
+        obj.innerHTML = `<span style='color: red'>Illegal Input: ${len}</span>`
+      }
+      else {
+        const useSymbols = document.getElementById("symbols").checked
+        let characterSet = CHARS
+        if (useSymbols){
+          characterSet += SYMB
+        }
+        let passwd = ""
+        let s = 0
+        while (s < len){
+          passwd += characterSet[getRandom(characterSet.length)]
+          s += 1
+        }
+
+
+        // for (let i = 0; i < len; i++){
+        //   const randIndex = Math.floor(Math.random() * characterSet.length)
+        //   passwd += characterSet[randIndex]
+        // }
+        let obj = document.getElementById("passwordOutput")
+        obj.textContent = passwd
+      }
+    }
+
+    function getRandom(siza){
+      const randIndex = Math.floor(Math.random() * siza.length)
+      return randIndex
+    }
+
+    const getRandom2 = (siza) => {
+      const randIndex = Math.floor(Math.random() * siza.length)
+      return randIndex
+    }
+
+  </script>
+</head>
+<!--<body onLoad="doPassWord()">-->
+<body>
+<div class="password-generator">
+  <h2>Password Generator</h2>
+
+  <label for="length">Password Length:</label>
+  <input type="number" id="length" min="4" value="8" required>
+
+  <div class="checkbox-group">
+    <input type="checkbox" id="symbols">
+    <label for="symbols">Include Symbols</label>
+  </div>
+
+  <button id="generatePassword" onclick="doPassword()">Generate Password</button>
+
+  <div class="password-output" id="passwordOutput">Your password will appear here</div>
+</div>
+
+
+</body>
+</html>
