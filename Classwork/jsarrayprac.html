@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+      function workWArrays(){
+        // let fruits = [];
+        let fruits2 = new Array();
+        let fruits3 = ['Apple', 'Berry', "Cherry", 44]
+        fruits3[3] = 'Donut'
+        fruits3.push('eggs')
+        console.log("Fruits Size = " + fruits3.length)
+
+        for (let i = 0; i < fruits3.length; i++){
+          console.log(fruits3[i])
+        }
+
+        //
+        fruits3.forEach((fruit, index) => {
+          console.log(`index: ${index} value: ${fruit}`)
+        })
+
+        // removing an element
+        let f1 = fruits3.shift()
+        console.log(fruits3);
+
+        let idx = fruits3.indexOf("Cherry")
+        console.log("idx = " + idx)
+
+        let fruits = ["A", "B", "C", "D", "E", "F"]
+
+        let someFruits = fruits.slice(0, 2)
+        console.log(someFruits)
+
+        // makes all strings or chars in the array lowercase
+        let lowerCase = fruits.map(fruits => fruits.toLowerCase())
+        fruits.sort()
+        fruits.reverse()
+
+        if (fruits.includes("A")){ // same things as .contains
+          console.log("there is an apple")
+        }
+
+
+      }
+    </script>
+</head>
+<body>
+  <div id="form">
+    <button type="button" onclick="workWArrays()">Click to start</button>
+    <br>
+    <span id="results">results</span>
+  </div>
+</body>
+</html>
