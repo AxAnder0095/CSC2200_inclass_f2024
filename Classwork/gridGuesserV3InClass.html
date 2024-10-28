@@ -11,6 +11,7 @@
             border: 1px solid #c1c1c1;
             margin: 2rem auto 0 auto;
             max-width: 600px;
+            padding: 1em;
         }
         form input {
             background: #fff;
@@ -68,55 +69,85 @@
         let showSecretWord = "";
         let numWrong = 0;
 
-        function letterIsGood(l) {
-            let response = {
-                respOK : true,
-                response : ""
-            };
-            if (l.length > 1){
-                response.respOK = false;
-                response.reason = "Length to long";
+        function guessWord() {
+            let word = document.getElementById("letter").value;
+            let img = "no.png";
+            if (word.toLowerCase() === originalSecretWord.toLowerCase()){
+                showSecretWord = originalSecretWord;
+                img = "win.png";
+                alert("winner winner")
+                document.getElementById("submit").style.display = 'none';
+                document.getElementById("reset").style.display = 'block';
             }
-            else if (!/a-zA-Z/.test(l)){
-                response.respOK = false
-                response.reason = "Bad Letter input"
-            }
-            return response
-        }
-
-        function guessLetter() {
-            let l = document.getElementById("letter").value;
-            let resp = letterIsGood(l)
-            if (!resp.respOK){
-                let oStr = "Error Illegal Input: " + resp.reason;
-                alert(oStr)
-            }
-            else{
-                // Todo finish this
-                let idx = secretWord.indexOf(l); // -1 if not found, else the char position
-                let img = ""
-                if (idx === -1)
-                {
-                    // not found
-                    numWrong += 1;
-                    img = "no.png";
-                }
-                else{
-                    alert("ToDo Good Guess")
-                }
+            else {
+                numWrong++;
+                showSecretWordSoFar(img);
             }
         }
 
         function guessIt(){
             const isGuessLetter = document.getElementById("mode-letter").checked;
-            if (isGuessLetter){
-                guessLetter()
+            const isGuessWord = document.getElementById("mode-word").checked;
+            if ( isGuessLetter) {
+                alert("Ready");
+                guessLetter();
             }
-            else{
-                alert("Not ready for prime time yet")
+            else if (isGuessWord){
+                guessWord()
+            }
+            else {
+                //TODO Finish this
+                alert("what just happened this could not be");
             }
         }
-
+        function guessLetter(){
+            let l = document.getElementById("letter").value; // get letter
+            let resp = letterIsGood( l );
+            if ( !resp.respOK){
+                let oStr = "Error Illegal Input:" + resp.reason;
+                alert( oStr );
+            } else {
+                // Figure out if it a good guess
+                let idx = secretWord.indexOf( l ); // -1 if not found
+                let img = "";
+                if ( idx === -1 ){
+                    //Not found
+                    numWrong += 1;
+                    img = "no.png";
+                } else {
+                    // guess correctly
+                    alert("ToDo Good Guess")
+                    while (idx !== -1){
+                        showSecretWord = showSecretWord.substring(0, idx)
+                            + l + showSecretWord.substring(idx + 1);
+                        secretWord = secretWord.substring(0, idx) + '*'
+                            + secretWord.substring(idx + 1);
+                        idx = secretWord.indexOf(l); // check again if letter is in there
+                    }
+                    img = 'yes.png';
+                }
+                showSecretWordSoFar( img );
+            }
+            // } else {
+            //     alert("not OK")
+            // }
+        }
+        function letterIsGood( l ){
+            let response = { // an object literal
+                respOK : true,
+                response : ""
+            };
+            if ( l.length > 1 ){
+                response.respOK = false;
+                response.reason = "Length too long";
+                response.reason2 = "Because I said so";
+            } else if ( !/[a-zA-Z]/.test(l)){ // if you entered was not letters, then else if executes
+                console.log("FLAG WHy why why ")
+                response.respOK = false;
+                response.reason = "Bad Letter Input";
+            }
+            return response;
+        }
         // Randomly select a word from the array
         function selectRandomWord() {
             const randomIndex = Math.floor(Math.random() * wordsArray.length);
@@ -132,9 +163,10 @@
             oStr += `<img src='imgs/${img}' width=50 />`;
             // alert( oStr )
             document.getElementById("results").innerHTML = oStr;
+            document.getElementById("letter").value = "";
         }
 
-        window.onload = function() { // after the document loads in the browser, run this first
+        window.onload = function() {
             // Initialize game
             selectRandomWord();
             let start = 'start.png'
@@ -142,6 +174,9 @@
             // Attach the event listener for the button
             const submitButton = document.querySelector("button");
             submitButton.addEventListener("click", guessIt);
+
+            const resetButton = document.querySelector("button");
+            resetButton.addEventListener("click", selectRandomWord)
         };
     </script>
 </head>
@@ -160,7 +195,8 @@
 
         <label for="letter" class="Letter">Input:</label>
         <input id="letter" type="text">
-        <button>Submit</button>
+        <button id="submit">Submit</button>
+        <button id="reset" style="display: none">Reset</button>
         <br />
         <label for="results" class="Results">Results:</label>
         <span id="results"> results</span>
