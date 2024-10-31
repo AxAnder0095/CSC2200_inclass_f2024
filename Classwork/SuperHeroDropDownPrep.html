@@ -12,11 +12,13 @@
       { name: "Black Widow", alias: "Natasha Romanoff", powers: ["Expert Martial Artist", "Espionage", "Stealth"], weapons: ["Batons", "Guns", "Explosives"] },
       { name: "Spider-Man", alias: "Friendly Neighborhood Spider-Man", powers: ["Wall-Crawling", "Super Agility", "Spider-Sense"], weapons: ["Web Shooters"] }
     ];
+
     window.onload = function() {
       const superheroSelect = document.getElementById('superheroSelect');
       const aliasElement = document.getElementById('alias');
       const powersElement = document.getElementById('powers');
       const weaponsElement = document.getElementById('weapons');
+      
 
       // Populate select options
       superheroes.forEach(hero => {
