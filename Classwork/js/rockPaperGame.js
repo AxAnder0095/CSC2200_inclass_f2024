@@ -8,6 +8,7 @@ const ui = {
         if (disId === "resArea"){
             let stateImg = game.getStatePictures(value)
             let oStr = `<p>${value}</p>`;
+            console.log(stateImg)
             oStr += `<img src="../imgs/${stateImg}" width="80px" height="80px"/>`
             document.getElementById(disId).innerHTML = oStr;
         }
