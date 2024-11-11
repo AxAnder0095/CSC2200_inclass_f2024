@@ -35,14 +35,58 @@ const gameBoard = {
         }
         this.board[this.playerPosition.row][this.playerPosition.col] = 'P';
     },
-    move(direction) {
-        alert("inside move direction" + direction);
+    move( direction ) {
+        let pRow = this.playerPosition.row;
+        let pCol = this.playerPosition.col;
+        pRow = 5;
+        pCol = 3;
+        switch (direction) {
+            case 'up':
+                // if (this.playerPosition.col !== 0){
+                //
+                // }
+                pRow = Math.max(0, pRow - 1);
+                break;
+            case 'down':
+                pRow = Math.min(this.size - 1, pRow + 1);
+                break;
+            case 'left':
+                pCol = Math.max(0, pCol - 1);
+                break;
+            case 'right':
+                pCol = Math.min(this.size - 1, pCol + 1);
+                break;
+        }
+        // alert(`Inside Move Direction: nRow: ${direction} nCol: ${pCol}`);
+        if (this.board[pRow][pCol] !== '0'){
+            this.board[this.playerPosition.row][this.playerPosition.col] = '';
+            this.playerPosition.row = pRow;
+            this.playerPosition.col = pCol;
+            this.moves++;
+            if (this.board[pRow][pCol] === 'C'){
+                this.score++;
+                this.board[pRow][pCol] = '';
+                this.collectibles = this.collectibles.filter(
+                    collectible =>
+                        !( collectible.row === pRow && collectible.col === pCol ));
+                this.showNotification("Collected an item!");
+            }
+            this.board[this.playerPosition.row][this.playerPosition.col] = 'P';
+            this.render();
+        }
     },
     createEmptyBoard() {
         for( let i = 0; i < this.size; i++ ) {
             let row = Array(this.size).fill('');
             this.board.push(row);  // push appends a row on to the array
         }
+    },
+    showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.innerText = message;
+        setTimeout( () => {
+            notification.innerText = '';
+        }, 3000);
     },
     render(){
         const gameBoardDOM = document.getElementById('game-board');
@@ -63,12 +107,13 @@ const gameBoard = {
         }
         document.getElementById('move-count').textContent =
             `Moves: ${this.moves}`;
+
     }
 }
 document.addEventListener("DOMContentLoaded", function() {
     gameBoard.init();
-    // alert(`Board:${ gameBoard.board.length }`);
     window.addEventListener('keydown', (e) => {
+        // alert("Keyed down: " + e.key);
         switch (e.key) {
             case 'ArrowUp':
                 gameBoard.move('up');
@@ -83,5 +128,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 gameBoard.move('right');
                 break;
         }
+
     })
 })
