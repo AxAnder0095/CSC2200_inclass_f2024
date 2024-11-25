@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .stored-value {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Cookie Demo</h2>
+    <div>
+        <input type="text" id="userInput" placeholder="Enter text to save in cookie">
+        <button onclick="saveCookie()">Save</button>
+        <button onclick="deleteCookie()" class="delete-btn">Delete Cookie</button>
+    </div>
+    <div id="cookieDisplay" class="stored-value" style="display: none;">
+        <p>Stored Cookie Value:</p>
+        <p id="cookieValue"></p>
+    </div>
+</div>
+
+<script>
+    // Function to set cookie
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    // Function to get cookie
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return '';
+    }
+
+    // Function to delete cookie
+    function deleteCookie() {
+        // Set expiration to past date to delete the cookie
+        document.cookie = 'userInput=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+        document.getElementById('cookieDisplay').style.display = 'none';
+        document.getElementById('userInput').value = '';
+    }
+
+    // Function to save cookie from input
+    function saveCookie() {
+        const input = document.getElementById('userInput');
+        const value = input.value;
+
+        if (value) {
+            setCookie('userInput', value, 7); // Save for 7 days
+            displayCookie(value);
+            input.value = ''; // Clear input
+        }
+    }
+
+    // Function to display cookie value
+    function displayCookie(value) {
+        const display = document.getElementById('cookieDisplay');
+        const valueElement = document.getElementById('cookieValue');
+        display.style.display = 'block';
+        valueElement.textContent = value;
+    }
+
+    // Check for existing cookie when page loads
+    window.onload = function() {
+        const existingCookie = getCookie('userInput');
+        if (existingCookie) {
+            displayCookie(existingCookie);
+        }
+    }
+</script>
+</body>
+</html>
