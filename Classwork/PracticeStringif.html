@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        const menu = {
+            menuItems: [
+                {
+                    name: "Burger",
+                    price: 5.99,
+                },
+                {
+                    name: "Pizza",
+                    price: 8.99,
+                },
+                {
+                    name: "Salad",
+                    price: 4.99,
+                }
+            ]
+        };
+        let stringVersion = "";
+        function makeAString(){
+            let str1 = JSON.stringify(menu);
+            stringVersion = str1;
+            document.getElementById('results').innerHTML = str1;
+        }
+
+        function makeAnObject(){
+            let nObj = JSON.parse(stringVersion);
+            document.getElementById('results').innerHTML = nObj.menuItems[0].name;
+        }
+    </script>
+</head>
+<body>
+    <button type="button" onclick="makeAString()"> Make it a string </button>
+    <button type="button" onclick="makeAnObject()"> Make it an object </button>
+    <div id="results"></div>
+</body>
+</html>
