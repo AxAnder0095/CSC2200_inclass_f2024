@@ -1,0 +1,52 @@
+body {
+    font-family : sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+
+}
+header {
+    height:130px;
+    background-color:yellow;
+}
+#logo {
+    width : 112px;
+    height : 112px;
+    float: left;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+#mainTable {
+    text-align: center;
+}
+#mainTable, th, td {
+   border: 1px solid;
+    border-collapse: collapse;
+
+}
+#mainTitle {
+    font-size : 30px;
+    font-family: "Arial Black";
+    color: rebeccapurple;
+    text-align: center;
+    position: relative;
+    top: 50px;
+
+}
+#mainArea {
+    position: relative;
+    margin-left: 30%;
+}
+footer {
+    height: 40px;
+    background-color: cyan;
+    font-size: 15px;
+}
+#footerContent {
+    padding-left: 20px;
+}
+.firstCol {
+    background-color: yellow;
+    font-size: 30px;
+}
+

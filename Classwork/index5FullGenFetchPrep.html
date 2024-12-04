@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Title</title>
+    <link rel='stylesheet' href="css/fullGenMain.css">
+    <style>
+        #special {
+            background-color: yellow;
+        }
+
+        td {
+            background-color: yellowgreen;
+        }
+    </style>
+    <script>
+        let total = 0;
+
+        function moreInfo(id) {
+            alert("Clicked ID = " + id);
+        }
+
+        function showTable() {
+            let url = "http://45.55.136.114/~dlash/CSC3700/books.php";
+            fetch(url)
+                .then(response => response.json()) // parse as json
+                .then(data => {
+                    let res = "";
+                    for (let i = 0; i < data.length; i++){
+                        let r = data[i];
+                        let row = `<tr><td>${r.title}</td>`;
+                            row += `<td>${r.author}</td>`;
+                            row += `<td>${r.description}</td>`;
+                            row += `<td><button type="button" onclick="moreInfo(${r.id})">ID: ${r.id}</button></td>`;
+                            row += `</tr>`;
+                        res += row;
+                    }
+                    let tArea = document.getElementById('mainTable');
+                    tArea.innerHTML = res;
+                }).catch(error => {
+                    alert("it broke")
+            });
+
+            console.log("hello");
+        }
+    </script>
+</head>
+
+<body onLoad="showTable()">
+<header>
+    <img id="logo" src="imgs/logo76.png"/>
+    <h1 class="mainTitle"> Books 4 u </h1>
+</header>
+<article>
+    <h1 id="title">
+        Here is our current store of books
+    </h1>
+    <main>
+        <table id='bookTable'>
+            <thead>
+            <tr>
+                <th> Title</th>
+                <th> Author</th>
+                <th> Description</th>
+            </tr>
+            </thead>
+            <tbody id="mainTable">
+
+            </tbody>
+        </table>
+    </main>
+</article>
+<footer>
+    &copy; 2023 - Built for <a href="http://www.aurora.edu"> Aurora University </a>
+    <span style='position: relative; left: 10px' id="results"> 00 </span>
+</footer>
+
+</body>
+</html>
