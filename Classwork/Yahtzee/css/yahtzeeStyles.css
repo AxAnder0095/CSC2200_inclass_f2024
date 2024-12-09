@@ -1,0 +1,129 @@
+body{
+    background-color: #5C2D73;
+}
+
+#main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, serif;
+}
+
+#game-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-box{
+    display: grid;
+}
+
+#yahtzee-header, #roll-numbers, #num-categories, #total-score-div, #footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid white;*/
+}
+
+#yahtzee-header{
+    color: #ef1897;
+}
+
+#roll-numbers{
+    gap: 10px;
+}
+
+#dice-nums1, #dice-nums2, #dice-nums3, #dice-nums4, #dice-nums5{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ef1897;
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    color: white;
+}
+
+#num-categories{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.hands{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hands > .numbers-container, .button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #A77BCA;
+    width: 250px;
+    border-radius: 5px;
+}
+
+.numbers-container{
+    color: white;
+}
+
+#score-button-1, #score-button-2, #score-button-3,
+#score-button-4, #score-button-5, #score-button-6,
+#score-button-7, #score-button-8, #score-button-9{
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    width: 65px;
+    background-color: #5C2D73;
+    color: yellow;
+}
+
+#score-button-1:hover, #score-button-2:hover, #score-button-3:hover,
+#score-button-4:hover, #score-button-5:hover, #score-button-6:hover,
+#score-button-7:hover, #score-button-8:hover, #score-button-9:hover{
+    background-color: purple;
+}
+
+#bottom-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: #A77BCA;
+    border-radius: 5px;
+    height: 50px;
+}
+
+#bottom-button-container > button{
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    background-color: #5C2D73;
+    color: yellow;
+}
+
+#bottom-button-container > button:hover{
+    background-color: purple;
+}
+
+#total-score-div{
+    color: white;
+}
+
+#num-of-turns-and-rolls-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#footer{
+    background-color: red;
+    height: 50px;
+    border-radius: 5px;
+}
