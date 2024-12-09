@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santa's Joke Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 1fr 2px 2fr;
+      height: 100vh;
+    }
+    .header {
+      grid-column: 1 / 4;
+      background-color: #004d00;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 4px solid #ff0000;
+    }
+    .header img {
+      height: 50px;
+      margin-right: 1rem;
+    }
+    .header h1 {
+      flex-grow: 1;
+      text-align: center;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .left, .right {
+      padding: 1rem;
+    }
+    .left {
+      background-color: #ffe6e6;
+    }
+    .right {
+      background-color: #e6ffe6;
+    }
+    .divider {
+      background-color: #004d00;
+      width: 2px;
+    }
+    .joke-item {
+      margin-bottom: 1rem;
+    }
+    .joke-item button {
+      background-color: #004d00;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .joke-item button:disabled {
+      background-color: #d3d3d3;
+      cursor: not-allowed;
+    }
+    .choices button {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .notification {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #004d00;
+    }
+
+    .scores {
+      margin-top: 1rem;
+    }
+
+    .reset-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #004d00;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #jokes-container{
+      display: grid;
+      /*grid-template-columns: 1fr 1fr;*/
+      grid-template-rows: 50px;
+      gap: 10px;
+      border: 1px solid blue;
+      font-size: 20px;
+    }
+
+    .joke{
+      display: grid;
+      grid-template-columns: 100px 100px;
+    }
+
+    #joke-btn1, #joke-btn2, #joke-btn3, #joke-btn4, #joke-btn5, #joke-btn6{
+      border: none;
+      border-radius: 5px;
+      background-color: darkgreen;
+      color: white;
+      font-size: 18px;
+      padding: 5px;
+      width: 130px;
+    }
+
+    #joke-btn1:hover, #joke-btn2:hover, #joke-btn3:hover, #joke-btn4:hover, #joke-btn5:hover, #joke-btn6:hover{
+      background-color: greenyellow;
+    }
+
+    #answer1, #answer2, #answer3, #answer4{
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      margin-left: 5px;
+      font-size: 18px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Santa's Joke Quiz</h1>
+  </div>
+  <div class="left">
+    <h2>The Jokes</h2>
+    <div id="jokes-container">
+      <div class="joke">
+        <div class="joke-text">Joke 1</div>
+        <div class="joke-button1"><button id="joke-btn1">Show Joke 1</button></div>
+      </div>
+      <div class="joke">
+        <div class="joke-text">Joke 2</div>
+        <div class="joke-button2"><button id="joke-btn2">Show Joke 2</button></div>
+      </div>
+      <div class="joke">
+        <div class="joke-text">Joke 3</div>
+        <div class="joke-button3"><button id="joke-btn3">Show Joke 3</button></div>
+      </div>
+      <div class="joke">
+        <div class="joke-text">Joke 4</div>
+        <div class="joke-button4"><button id="joke-btn4">Show Joke 4</button></div>
+      </div>
+      <div class="joke">
+        <div class="joke-text">Joke 5</div>
+        <div class="joke-button5"><button id="joke-btn5">Show Joke 5</button></div>
+      </div>
+      <div class="joke">
+        <div class="joke-text">Joke 6</div>
+        <div class="joke-button6"><button id="joke-btn6">Show Joke 6</button></div>
+      </div>
+    </div>
+    <button class="reset-button" onclick="resetJokes()">Reset Jokes</button>
+  </div>
+  <div class="divider"></div>
+  <div class="right">
+    <h2>Answer the Joke</h2>
+    <div id="question-area">Click a joke button to start!</div>
+    <div id="numCorrect">
+      Correct: 0 <br>
+      Incorrect: 0
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function resetJokes(){
+    document.getElementById('question-area').innerHTML = "";
+    document.getElementById('numCorrect').innerHTML = "Correct: 0 <br> Incorrect: 0";
+    document.getElementById("joke-btn1").disabled = false;
+    document.getElementById("joke-btn1").style.backgroundColor = "darkgreen";
+    document.getElementById("joke-btn2").disabled = false;
+    document.getElementById("joke-btn2").style.backgroundColor = "darkgreen";
+    document.getElementById("joke-btn3").disabled = false;
+    document.getElementById("joke-btn3").style.backgroundColor = "darkgreen";
+    document.getElementById("joke-btn4").disabled = false;
+    document.getElementById("joke-btn4").style.backgroundColor = "darkgreen";
+    document.getElementById("joke-btn5").disabled = false;
+    document.getElementById("joke-btn5").style.backgroundColor = "darkgreen";
+    document.getElementById("joke-btn6").disabled = false;
+    document.getElementById("joke-btn6").style.backgroundColor = "darkgreen";
+
+
+  }
+  const game = {
+    jokes: [
+      { id: 0, question: "What is Santa's Dog's name?", answer: 'Santa Paws' },
+      { id: 1, question: "Who is Santa's Favorite Singer?", answer: 'Elfish Presley' },
+      { id: 2, question: "What do snowmen eat for dessert?", answer: 'Ice crispies' },
+      { id: 3, question: "What is Santa's Favorite Zip Code?", answer: 'O O O O O' },
+      { id: 4, question: "How does the grinch feel on Christmas?", answer: 'Claus-tro-phobic' },
+      { id: 5, question: "Why don't Santa's elves share?", answer: "Because they're elfish" }
+    ],
+    jokesShown: [],
+    correctScore: 0,
+    incorrectScore: 0,
+    correctMessage: "Correct! 🎉",
+    wrongMessage : "Wrong! 😢",
+    getRandomNumber(max) {
+        return Math.floor(Math.random() * max);
+    },
+    generateButtons: function (joke){
+      let answer = joke.answer;
+      let max = 6;
+      let randNum = 0;
+      let keepGoing = 0;
+      let alreadyChosen = [];
+
+      while (keepGoing !== 3){
+        randNum = this.getRandomNumber(max)
+        if (answer !== this.jokes[randNum].answer && !alreadyChosen.includes(this.jokes[randNum].answer)){
+          alreadyChosen.push(this.jokes[randNum].answer)
+          keepGoing += 1;
+        }
+      }
+
+      let oStr = `<h2>${joke.question}</h2>`
+      oStr += `<button id="answer1" value="1" style="background-color: red">${answer}</button>`;
+      oStr += `<button id="answer2" value="0" style="background-color: red">${alreadyChosen[0]}</button>`
+      oStr += `<button id="answer3" value="0" style="background-color: red">${alreadyChosen[1]}</button>`
+      oStr += `<button id="answer4" value="0" style="background-color: red">${alreadyChosen[2]}</button>`
+
+      document.getElementById('question-area').innerHTML = oStr;
+    },
+    updateCorrectorNot: function (val){
+      if (val === 1){
+        this.correctScore += 1;
+        document.getElementById('numCorrect').innerHTML = `Correct: ${this.correctScore} <br> Incorrect: ${this.incorrectScore}`;
+      }
+      else {
+        this.incorrectScore += 1;
+        document.getElementById('numCorrect').innerHTML = `Correct: ${this.correctScore} <br> Incorrect: ${this.incorrectScore}`;
+      }
+    },
+    listenForButtons: function (){
+      // document.getElementById('answer1').addEventListener('click', function (){
+      //   let val = document.getElementById('answer1').value;
+      //   game.updateCorrectorNot(val);
+      // });
+      // document.getElementById('answer2').addEventListener('click', function (){
+      //   let val = document.getElementById('answer2').value;
+      //   game.updateCorrectorNot(val);
+      // })
+      // document.getElementById('answer3').addEventListener('click', function (){
+      //   let val = document.getElementById('answer3').value;
+      //   game.updateCorrectorNot(val);
+      // })
+      // document.getElementById('answer4').addEventListener('click', function (){
+      //   let val = document.getElementById('answer4').value;
+      //   game.updateCorrectorNot(val);
+      // })
+    },
+  };
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('joke-btn1').addEventListener('click', function (){
+      let joke = game.jokes[0];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn1").style.backgroundColor = "gray";
+      document.getElementById("joke-btn1").disabled = true;
+    });
+    document.getElementById('joke-btn2').addEventListener('click', function (){
+      let joke = game.jokes[1];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn2").style.backgroundColor = "gray";
+      document.getElementById("joke-btn2").disabled = true;
+    });
+    document.getElementById('joke-btn3').addEventListener('click', function (){
+      let joke = game.jokes[2];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn3").style.backgroundColor = "gray";
+      document.getElementById("joke-btn3").disabled = true;
+    });
+    document.getElementById('joke-btn4').addEventListener('click', function (){
+      let joke = game.jokes[3];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn4").style.backgroundColor = "gray";
+      document.getElementById("joke-btn4").disabled = true;
+    });
+    document.getElementById('joke-btn5').addEventListener('click', function (){
+      let joke = game.jokes[4];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn5").style.backgroundColor = "gray";
+      document.getElementById("joke-btn5").disabled = true;
+    });
+    document.getElementById('joke-btn6').addEventListener('click', function (){
+      let joke = game.jokes[5];
+      game.generateButtons(joke);
+      document.getElementById("joke-btn6").style.backgroundColor = "gray";
+      document.getElementById("joke-btn6").disabled = true;
+    });
+  });
+
+
+</script>
+</body>
+</html>
